@@ -8,7 +8,8 @@ const Home = () => {
     const [pause,setPause]=useState(false)
     const [intervalId,setIntervalId]=useState(null)
     const [start,setstart]=useState("Start");
-    const [lapnumber,setLapnumber]=useState(1)
+    const [lapnumber,setLapnumber]=useState(1);
+    const [loading,setloading]=useState(false)
 
     let updatedS=second;
     let updatedM=minute;
@@ -70,9 +71,17 @@ const Home = () => {
         let newDiv= document.createElement("div");
         newDiv.classList.add("lapcolumn");
         newDiv.innerHTML=`<h3> #${lapnumber} </h3> <h3>${hour < 10 ? '0' + hour : hour} : ${minute < 10 ? '0' + minute : minute} :  ${second < 10 ? '0' + second : second}</h3>`
-        laps.appendChild(newDiv)
+        laps.appendChild(newDiv);
+        setloading(true)
     }
-   
+   const clearButton =()=>{
+         setloading(false);
+         const container = document.getElementById('laps');
+         const elementsToRemove = container.querySelectorAll('.lapcolumn');
+        elementsToRemove.forEach(element => {
+        element.remove();
+       });
+   }
   return (
     <>
     <div className='header'>
@@ -88,16 +97,19 @@ const Home = () => {
            
             <button onClick={resetButton} className='btn reset'>Reset</button>
             <button onClick={lapButton} className='btn lap'>Lap</button>
+            
 
 
         </div>
         
     </div>
+
+
     <div className="laps" id="laps">
         
-        
-        
-       
+    </div>
+    <div className="clear">
+    {loading &&  (<button onClick={clearButton} className='btn lap'>Clear All </button>)}
     </div>
     </>
   )
