@@ -11,47 +11,41 @@ const Home = () => {
     const [lapnumber,setLapnumber]=useState(1)
 
     let updatedS=second;
-    let updatedM=minute
+    let updatedM=minute;
    
-    const  run =()=>{
-        if(minute===60){
-      
-           updatedM=0
-        }
-        if (second===60){
-            updatedM+=1
-            updatedS=0
-        }
-        else{
-           updatedS+=1
-        }
-     }
-
+  
 
     const startButton= ()=>{
         if (pause!==true){
             setstart("Pause");
             const id= setInterval(() => {
-               
-                run();
-                
-                if(updatedM===60){
+        
+                if(updatedM===59 && updatedS===59){
                     setHour((h)=>h+1);
+                    updatedS=0;
+                    updatedM=0
                     setMinute(0);
                     setSecond(0);
-                }
-                if (updatedS===60){
-                    setMinute((m)=> m+1);
-                    setSecond(0);
-                }
-                else{
-                    setSecond((s)=>s+1)
-                    console.log(updatedS)
-                }
-               
+                
+                
                    
+                }
+                else if (updatedS===59 ){
+                    updatedM+=1
+                    setMinute((m)=> m+1);
+                    updatedS=0;
+                    setSecond(0);
+                   
+                    
+                }
+                 else{
+                    setSecond((s)=>s+1)
+                    updatedS+=1
+                
+                }
+
             }, 1000);
-            console.log("HI");
+          
             setIntervalId(id);
             setPause(true)
         }else{
