@@ -76,7 +76,7 @@ const Home = () => {
     }
    const clearButton =()=>{
          setloading(false);
-         setLapnumber(0);
+         setLapnumber(1);
          const container = document.getElementById('laps');
          const elementsToRemove = container.querySelectorAll('.lapcolumn');
         elementsToRemove.forEach(element => {
